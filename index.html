@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Temp Mail</title>
+<style>
+body{background:#0f172a;color:#fff;font-family:Arial}
+.container{max-width:420px;margin:auto;padding:20px}
+.email{background:#111827;padding:12px;border-radius:6px;word-break:break-all}
+button{width:100%;padding:10px;margin-top:10px;border:none;border-radius:6px}
+.msg{background:#1f2933;padding:8px;margin-top:8px;border-radius:6px}
+</style>
+</head>
+<body>
+<div class="container">
+<h2>📧 Temp Mail</h2>
+<div class="email" id="email">Click Generate</div>
+<button onclick="createEmail()">Generate Email</button>
+<button onclick="loadInbox()">Refresh Inbox</button>
+<div id="inbox"></div>
+</div>
+<script>
+async function createEmail(){
+ const res = await fetch("/.netlify/functions/create");
+ const data = await res.json();
+ document.getElementById("email").innerText = data.email;
+}
+async function loadInbox(){
+ const res = await fetch("/.netlify/functions/messages");
+ const data = await res.json();
+ const inbox = document.getElementById("inbox");
+ inbox.innerHTML="";
+ data.forEach(m=>{
+  inbox.innerHTML+=`<div class="msg"><b>${m.from.address}</b><br>${m.subject}</div>`;
+ });
+}
+</script>
+</body>
+</html>

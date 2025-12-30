@@ -1,8 +1,6 @@
 {
-  "name": "tempmail-vercel",
+  "name": "tempmail-netlify",
   "version": "1.0.0",
-  "private": true,
-  "type": "module",
   "dependencies": {
     "axios": "^1.6.8"
   }
